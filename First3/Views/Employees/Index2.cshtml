@@ -1,0 +1,104 @@
+﻿@model IEnumerable<First3.Models.Employee>
+@{
+    ViewBag.Title = "Index";
+    var grid = new WebGrid(canPage: true, rowsPerPage: 3);
+    grid.Bind(source: Model, rowCount: ViewBag.TotalRows, autoSortAndPage: false);
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<div class="collapse navbar-collapse">
+    @using (Html.BeginForm("index", "Employees", FormMethod.Get, new { @class = "navbar-form navbar-left" }))
+    {
+        <div class="form-group">
+            <input type="text" name="search" value="@ViewBag.search" class="form-control" placeholder="search" />
+        </div>
+        <button type="submit" value="Search" class="btn btn-success">Search</button>
+    }
+</div>
+
+<div>
+    @grid.Table(
+             tableStyle: "table table-responsive table-bordered",
+             columns: grid.Columns(
+                 grid.Column(columnName: "FirstName", header: "First Name"),
+                 grid.Column(columnName: "LastName", header: "Last Name"),
+                 grid.Column(columnName: "Position", header: "Position")
+                 //grid.Column(columnName: "De", header: "")
+             )
+         )
+
+    <div class="row">
+        <div class="col-sm-6">
+            @grid.PagerList(mode: WebGridPagerModes.All, paginationStyle: "pagination pagination-small pagination-right")
+        </div>
+    </div>
+
+    @Html.Hidden("dir", grid.SortDirection)
+    @Html.Hidden("col", grid.SortColumn)
+
+</div>
+
+<script>
+        $(function () {
+            try {
+                var dir = $('#dir').val();
+                var col = $('#col').val();
+                var header = $("th a[href*=" + col + "]");
+                if (dir == "Ascending") {
+                    header.text(header.text() + "  ▲")
+                }
+                if (dir == "Descending") {
+                    header.text(header.text() + "  ▼");
+                }
+
+            } catch (e) {
+
+            }
+        })
+</script>
+
+
+
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
+            </td>
+        </tr>
+    }
+
+</table>*@
