@@ -10,19 +10,20 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
+@Html.Partial("_SideBar");
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 @using (Html.BeginForm())
 {
-<p>
-    @*@Html.TextBox("search")*@
-    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+    <p>
+        @*@Html.TextBox("search")*@
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
 
-    <input type="submit" name="submit" value="Search" />
-</p>
+        <input type="submit" name="submit" value="Search" />
+    </p>
 }
 <table class="table">
     <tr>
@@ -31,19 +32,19 @@
             @Html.ActionLink("Department Name", "Index", new { sortOrder = ViewBag.DepartmentSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-           
+
             @*@Html.DisplayNameFor(model => model.FirstName)*@
             @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
 
         </th>
         <th>
-           
+
             @*@Html.DisplayNameFor(model => model.LastName)*@
             @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastSortParm, currentFilter = ViewBag.CurrentFilter })
 
         </th>
         <th>
-            
+
             @*@Html.DisplayNameFor(model => model.Position)*@
             @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
 
@@ -53,6 +54,8 @@
 
     @foreach (var item in Model)
     {
+        @item.FirstName
+
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Department.DepartmentName)
@@ -67,9 +70,12 @@
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })
+                <a href="../Employees/Edit/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Edit"><i class="fas fa-edit"></i></a>
+                <a href="../Employees/Details/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Details"><i class="fas fa-list"></i></a>
+                <a href="../Employees/Delete/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })*@
             </td>
         </tr>
     }
@@ -79,25 +85,11 @@
 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+ new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
-
-@*<nav aria-label="...">
-        <ul class="pagination">
-            <li class="page-item disabled">
-                <span class="page-link">Previous</span>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item">
-                <span class="page-link">
-                    2
-                    <span class="sr-only">(current)</span>
-                </span>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>*@

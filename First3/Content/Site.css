@@ -1,6 +1,9 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    /*padding-top: 50px;
+    padding-bottom: 20px;*/
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to right, rgb(128, 128, 128),rgba(128, 128, 128,.1) );  
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,3 +25,54 @@ select,
 textarea {
     max-width: 280px;
 }
+/* start login page */
+.login {
+    /*border: 1px solid #0094ff;*/
+    border-radius: 5px;
+    margin: 0;
+    padding-top: 20px;
+    /*padding-bottom:100px;*/
+    background-color: rgba(3, 3, 3,.3);
+}
+.carousel-inner img {
+    width: 100%;
+    height: 100%;
+}
+/* end login page */
+/* start side bar */
+#sidebar {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    background: #151719;
+    transition: all 500ms linear;
+    left: -200px;
+    z-index:3;
+}
+
+    #sidebar.active {
+        left: 0px;
+    }
+
+    #sidebar ul li {
+        color: rgba(230,230,230,.9);
+        list-style: none;
+        padding: 15px 10px;
+        border-bottom: 1px solid rgba(100,100,100,.3);
+    }
+
+    #sidebar .toggle-btn {
+        position: absolute;
+        left: 230px;
+        top: 20px;
+    }
+
+        #sidebar .toggle-btn span {
+            display: block;
+            width: 30px;
+            height: 5px;
+            background-color: azure;
+            margin: 5px 0;
+        }
+
+/* end side bar */

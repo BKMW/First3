@@ -9,26 +9,65 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
+                        <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        </div>*@
+
+    <nav class="navbar navbar-expand-lg bg-dark  navbar-dark">
+        @*<div class="toggle-btn" onclick="toggleSideBar()">
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>*@
+        <a class="navbar-brand" href="/">:/Root</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i> Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Departments/Index">Departments</a>
+                    @*@Html.ActionLink("Departments", "Index", "Departments", new {@class= "nav-link" })*@
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Employees/Index">Employees</a>
+                    @*@Html.ActionLink("Employees", "Index", "Employees", new { @class = "nav-link" })*@
+                </li>
+                @*<li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Departments", "Index", "Departments")</li>
-                    <li>@Html.ActionLink("Employees", "Index", "Employees")</li>
-                </ul>
+                    <li>@Html.ActionLink("Employees", "Index", "Employees")</li>*@
+
+
+            </ul>
+            <div class="my-2 my-lg-3">
+
+                <!--partial view _login-->
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -40,5 +79,21 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+
+        function toggleSideBar() {
+            // document.getElementById("sidebar").classList.toggle("active");
+            $("#sidebar").toggleClass("active");
+            //alert("welcome");
+        }
+        function removeSideBar() {
+            $("#sidebar").removeClass("active");
+            // $("#sidebar").toggleClass("active");
+        }
+     /*$("body").click(function(){
+     $("#sidebar").removeClass("active");
+     });*/
+    </script>
 </body>
 </html>
