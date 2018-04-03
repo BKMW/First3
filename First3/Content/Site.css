@@ -42,17 +42,32 @@ textarea {
 /* start side bar */
 #sidebar {
     position: fixed;
-    width: 200px;
+    width: 300px;
     height: 100%;
     background: #151719;
     transition: all 500ms linear;
-    left: -200px;
+    left: -300px;
     z-index:3;
 }
 
     #sidebar.active {
         left: 0px;
     }
+    /* move right */
+/*#sidebar {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: #151719;
+    transition: all 500ms linear;
+    right: -300px;
+    z-index: 3;
+}
+
+    #sidebar.active {
+        right: 0px;
+    }*/
+    /* move */
 
     #sidebar ul li {
         color: rgba(230,230,230,.9);
@@ -62,9 +77,12 @@ textarea {
     }
 
     #sidebar .toggle-btn {
-        position: absolute;
+        /*position: absolute;
         left: 230px;
-        top: 20px;
+        top: 20px;*/
+        position: fixed;
+        left: 30px;
+        top: 30px;
     }
 
         #sidebar .toggle-btn span {
@@ -76,3 +94,14 @@ textarea {
         }
 
 /* end side bar */
+/* start index employees */
+/*.slide {
+    width: 100px;
+    background-color: aqua;
+    display: none;
+    transition: all 500ms linear;
+}
+.show {
+    display:inline;
+}*/
+/* end index employees */

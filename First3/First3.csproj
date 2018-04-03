@@ -223,7 +223,26 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\fontawesome-all.css" />
+    <Content Include="Content\media1\css\jquery.dataTables.css" />
+    <Content Include="Content\media1\images\back_disabled.png" />
+    <Content Include="Content\media1\images\back_enabled.png" />
+    <Content Include="Content\media1\images\back_enabled_hover.png" />
+    <Content Include="Content\media1\images\favicon.ico" />
+    <Content Include="Content\media1\images\forward_disabled.png" />
+    <Content Include="Content\media1\images\forward_enabled.png" />
+    <Content Include="Content\media1\images\forward_enabled_hover.png" />
+    <Content Include="Content\media1\images\sort_asc.png" />
+    <Content Include="Content\media1\images\sort_asc_disabled.png" />
+    <Content Include="Content\media1\images\sort_both.png" />
+    <Content Include="Content\media1\images\sort_desc.png" />
+    <Content Include="Content\media1\images\sort_desc_disabled.png" />
+    <Content Include="Content\media1\js\jquery.dataTables.js" />
+    <Content Include="Content\media1\css\jquery.dataTables.min.css" />
+    <Content Include="Content\media1\css\jquery.dataTables_themeroller.css" />
+    <Content Include="Content\media1\js\jquery.dataTables.min.js" />
+    <Content Include="Content\media1\js\jquery.js" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\StyleTable.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -247,6 +266,7 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Content\media1\images\Sorting icons.psd" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -326,6 +346,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ImagesDepartments\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

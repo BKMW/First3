@@ -4,10 +4,27 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@Html.Partial("_SideBar");
+
+<!---->
+<br />
+<div class="row">
+    <div class="col-1">
+        <a href="../Index">
+            <i class="fas fa-arrow-circle-left fa-3x"></i>
+        </a>
+    </div>
+    <div class="col-11" style="margin: 15px auto;">
+
+
+    </div>
+</div>
+<br />
+ 
+
 
 <div>
-    <h4>Employee</h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -46,5 +63,69 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.EmployeeID }) |
-    @Html.ActionLink("Back to List", "Index")
+
 </p>
+
+<!-- button -->
+<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+</button>
+
+<!-- start modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+                 <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Position)
+        </dd>
+
+    </dl>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal-->

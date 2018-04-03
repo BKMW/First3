@@ -20,7 +20,6 @@ namespace First3
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/popper.js",
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
@@ -28,6 +27,7 @@ namespace First3
                       "~/Content/bootstrap.css",
                       "~/Content/fontawesome-all.css",
                       "~/Content/site.css"));
+           
         }
     }
 }

@@ -11,11 +11,26 @@
 }
 
 
-@Html.Partial("_SideBar");
+@Html.Partial("_SideBar")
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+<br />
+<div class="row">
+    <div class="col-11">
+        @*<p>
+                @Html.ActionLink("Create New", "AddEmployee", new { @class = "btn btn-outline-primary" })
+            </p>*@
+    </div>
+    <div class="col-1" style="margin: 15px auto;">
+        <a href="../Employees/Create">
+            <i class="fas fa-plus-circle fa-3x"></i>
+        </a>
+
+    </div>
+</div>
+<br />
 @using (Html.BeginForm())
 {
     <p>
@@ -25,28 +40,45 @@
         <input type="submit" name="submit" value="Search" />
     </p>
 }
-<table class="table">
+<table class="table table-striped">
     <tr>
         <th>
             @*@Html.DisplayNameFor(model => model.Department.DepartmentName)*@
             @Html.ActionLink("Department Name", "Index", new { sortOrder = ViewBag.DepartmentSortParm, currentFilter = ViewBag.CurrentFilter })
-        </th>
+
+            @if (ViewBag.DepartmentSortParm == "department")
+            {<i class="fas fa-arrow-up"></i> }
+            else
+            {<i class="fas fa-arrow-down"></i>}
+
         <th>
 
             @*@Html.DisplayNameFor(model => model.FirstName)*@
             @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @if (ViewBag.NameSortParm == "")
+            {<i class="fas fa-arrow-up"></i> }
+            else
+            {<i class="fas fa-arrow-down"></i>}
 
         </th>
         <th>
 
             @*@Html.DisplayNameFor(model => model.LastName)*@
             @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.LastSortParm, currentFilter = ViewBag.CurrentFilter })
+            @if (ViewBag.LastSortParm == "last")
+            {<i class="fas fa-arrow-up"></i> }
+            else
+            {<i class="fas fa-arrow-down"></i>}
 
         </th>
         <th>
 
             @*@Html.DisplayNameFor(model => model.Position)*@
             @Html.ActionLink("Position", "Index", new { sortOrder = ViewBag.PositionSortParm, currentFilter = ViewBag.CurrentFilter })
+            @if (ViewBag.PositionSortParm == "position")
+            {<i class="fas fa-arrow-up"></i> }
+            else
+            {<i class="fas fa-arrow-down"></i>}
 
         </th>
         <th></th>
@@ -54,7 +86,7 @@
 
     @foreach (var item in Model)
     {
-        @item.FirstName
+        @*@item.FirstName*@
 
         <tr>
             <td>
@@ -73,6 +105,9 @@
                 <a href="../Employees/Edit/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Edit"><i class="fas fa-edit"></i></a>
                 <a href="../Employees/Details/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Details"><i class="fas fa-list"></i></a>
                 <a href="../Employees/Delete/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                @*<i class="fas fa-edit" id="slide"></i><a href="../Employees/Edit/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Edit" class="edit"> Edit</a>
+                    <i class="fas fa-list"></i><a href="../Employees/Details/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Details" class=".slide">Details</a>
+                    <i class="fas fa-trash-alt"></i><a href="../Employees/Delete/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Delete" class=".slide">Delete</a>*@
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })*@
@@ -86,10 +121,4 @@
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
  new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
 

@@ -1,33 +1,96 @@
 ﻿@model IEnumerable<First3.Models.Department>
 
-@{
+@{ //Layout = null;
     ViewBag.Title = "Index";
 }
+@Html.Partial("_SideBar");
 
-<h2>Index</h2>
+<br />
+<div class="row">
+    <div class="col-11">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+    </div>
+    <div class="col-1" style="margin: 15px auto;">
+        <a href="../Departments/Create">
+            <i class="fas fa-plus-circle fa-3x"></i>
+        </a>
+
+    </div>
+</div>
+<br />
+@*<link href="~/Content/StyleTable.css" rel="stylesheet" />
+    <link href="~/Content/media1/css/jquery.dataTables.css" rel="stylesheet" />
+    <script src="~/Content/media1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#example").dataTable();
+        });
+    </script>
+
+
+    <article class="module width_full article">
+        <div class="module_content">
+            <table id="example" class="display" cellspacing="0" style="width:100%">*@
+
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.DepartmentName)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DepartmentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DepartmentID })
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                <img src="~/ImagesDepartments/@item.ImageUrl" />
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.DepartmentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.DepartmentID })
+            </td>
+        </tr>
+    }
 </table>
+@*</table>
+        </div>
+    </article>*@
+
+
+<!-- button -->
+<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModal">
+    Open modal
+</button>
+
+<!-- start modal -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal-->

@@ -17,6 +17,7 @@ namespace First3.Controllers
         // GET: Departments
         public ActionResult Index()
         {
+           
             return View(db.Departments.ToList());
         }
 
@@ -33,6 +34,7 @@ namespace First3.Controllers
                 return HttpNotFound();
             }
             return View(department);
+
         }
 
         // GET: Departments/Create
@@ -46,12 +48,13 @@ namespace First3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DepartmentID,DepartmentName")] Department department)
+        public ActionResult Create([Bind(Include = "DepartmentID,DepartmentName,File")] Department department)
         {
             if (ModelState.IsValid)
             {
                 db.Departments.Add(department);
                 db.SaveChanges();
+                department.File.SaveAs(Server.MapPath("~/ImagesDepartments/") + department.DepartmentID + ".jpg");
                 return RedirectToAction("Index");
             }
 
@@ -78,12 +81,17 @@ namespace First3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DepartmentID,DepartmentName")] Department department)
+        public ActionResult Edit([Bind(Include = "DepartmentID,DepartmentName,File")] Department department)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(department).State = EntityState.Modified;
                 db.SaveChanges();
+                if (department.File != null)
+                {
+                    department.File.SaveAs(Server.MapPath("~/ImagesDepartments/") + department.DepartmentID + ".jpg");
+                  
+                }
                 return RedirectToAction("Index");
             }
             return View(department);

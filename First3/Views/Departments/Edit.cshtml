@@ -4,15 +4,27 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+@Html.Partial("_SideBar");
+
+<br />
+<div class="row">
+    <div class="col-1">
+        <a href="../Index">
+            <i class="fas fa-arrow-circle-left fa-3x"></i>
+        </a>
+    </div>
+    <div class="col-11" style="margin: 15px auto;">
 
 
-@using (Html.BeginForm())
+    </div>
+</div>
+<br />
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Department</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.DepartmentID)
@@ -25,6 +37,17 @@
             </div>
         </div>
 
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.File, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.File, new { @type = "file" })
+
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -33,9 +56,7 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
