@@ -78,10 +78,20 @@
             // $("#sidebar").toggleClass("active");
         }
         /* end toggle sidebar */
-
+        $(".edit").hide();
+        $(".details").hide();
+        $(".delete").hide();
         /* start toggle slide icon */
         $("#slide").click(function () {
-            $(" .edit").toggle(500);
+            $(".edit").toggle(500);
+        });
+
+        $("#slide1").click(function () {
+            $(" .details").toggle(500);
+        });
+
+        $("#slide2").click(function () {
+            $(" .delete").toggle(500);
         });
         /* end toggle slide icon */
         /* start toggle popup icon*/

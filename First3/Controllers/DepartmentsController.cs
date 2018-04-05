@@ -108,6 +108,37 @@ namespace First3.Controllers
             return View(department);
         }
 
+        // GET: Departments/Edit/5
+        public ActionResult EditPopup(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Department department = db.Departments.Find(id);
+            if (department == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(department);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditPopup([Bind(Include = "DepartmentID,DepartmentName,File")] Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(department).State = EntityState.Modified;
+                db.SaveChanges();
+                if (department.File != null)
+                {
+                    department.File.SaveAs(Server.MapPath("~/ImagesDepartments/") + department.DepartmentID + ".jpg");
+
+                }
+                return RedirectToAction("Index");
+            }
+            return View(department);
+        }
         // POST: Departments/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.

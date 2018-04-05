@@ -129,16 +129,6 @@
             <div class="modal-body" id="detailsPopup">
 
 
-                @*@Html.Action("DetailsPopup", "Departments", new { id = 3 })*@
-
-
-                @*@Html.Action("Createe", "Departments")*@
-
-                @*@Html.Partial("DetailsPopup",item)*@
-
-
-
-
             </div>
 
             <!-- Modal footer -->
@@ -162,7 +152,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                 Are You want to delete this!
+                Are You want to delete this!
 
                 @*@Html.Action("DetailsPopup", "Departments", new { id = 3 })*@
 
@@ -179,20 +169,57 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger"  onclick="DeleteConfirmed()">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="DeleteConfirmed()">Delete</button>
 
             </div>
         </div>
     </div>
 </div>
 <!-- end modal delete-->
+<!-- start modal edit -->
+<div class="modal fade" id="myModalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="editPopup">
+                Are You want to delete this!
+
+                @*@Html.Action("DetailsPopup", "Departments", new { id = 3 })*@
+
+
+                @*@Html.Action("Createe", "Departments")*@
+
+                @*@Html.Partial("DetailsPopup",item)*@
+
+
+
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" onclick="DeleteConfirmed()">Delete</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal edit -->
 
 <script>
     //$(document).ready(function () {
 
     //})
     // delete Get
-    var DepartmentId=null;
+    var DepartmentId = null;
     var Delete = function (DepartmentID) {
         DepartmentId = DepartmentID;
         /////
@@ -217,13 +244,13 @@
             success: function () {
 
                 $("#myModalDelete").modal("hide");
-                $("#row_"+DepartmentId).remove();
+                $("#row_" + DepartmentId).remove();
             }
         })
     }//end delete
     //  get details
     var DetailsPopup = function (DepartmentID) {
-       
+
         /////
         var url = "../Departments/DetailsPopup/" + DepartmentID;
         $("#detailsPopup").load(url, function () {
@@ -239,6 +266,28 @@
         //        $("#myModal").modal("show");
         //    }
         //})
-        
+
     }//end details
+    //  get edit
+    var EditPopup = function (DepartmentID) {
+
+        /////
+        var url = "../Departments/EditPopup/" + DepartmentID;
+        $("#editPopup").load(url, function () {
+            $("#myModalEdit").modal("show");
+        })
+        // edit post
+        //var DeleteConfirmed = function () {
+        //    $.ajax({
+        //        type: "post",
+        //        url: "../Departments/Delete",
+        //        data: { id: DepartmentId },
+        //        success: function () {
+
+        //            $("#myModalEdit").modal("hide");
+        //            $("#row_" + DepartmentId).remove();
+        //        }
+        //    })
+        //}
+    }//end edit
 </script>

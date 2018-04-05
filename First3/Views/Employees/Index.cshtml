@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<First3.Models.Employee>
+﻿    @model PagedList.IPagedList<First3.Models.Employee>
 
 
 @using PagedList.Mvc;
@@ -43,15 +43,16 @@
 <table class="table table-striped">
     <tr>
         <th>
+
             @*@Html.DisplayNameFor(model => model.Department.DepartmentName)*@
             @Html.ActionLink("Department Name", "Index", new { sortOrder = ViewBag.DepartmentSortParm, currentFilter = ViewBag.CurrentFilter })
 
             @if (ViewBag.DepartmentSortParm == "department")
-            {<i class="fas fa-arrow-up"></i> }
-            else
-            {<i class="fas fa-arrow-down"></i>}
+    {<i class="fas fa-arrow-up"></i> }
+else
+{<i class="fas fa-arrow-down"></i>}
 
-        <th>
+<th>
 
             @*@Html.DisplayNameFor(model => model.FirstName)*@
             @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
@@ -102,12 +103,12 @@
                 @Html.DisplayFor(modelItem => item.Position)
             </td>
             <td>
-                <a href="../Employees/Edit/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Edit"><i class="fas fa-edit"></i></a>
+                @*<a href="../Employees/Edit/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Edit"><i class="fas fa-edit"></i></a>
                 <a href="../Employees/Details/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Details"><i class="fas fa-list"></i></a>
-                <a href="../Employees/Delete/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Delete"><i class="fas fa-trash-alt"></i></a>
-                @*<i class="fas fa-edit" id="slide"></i><a href="../Employees/Edit/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Edit" class="edit"> Edit</a>
-                    <i class="fas fa-list"></i><a href="../Employees/Details/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Details" class=".slide">Details</a>
-                    <i class="fas fa-trash-alt"></i><a href="../Employees/Delete/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Delete" class=".slide">Delete</a>*@
+                <a href="../Employees/Delete/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Delete"><i class="fas fa-trash-alt"></i></a>*@
+                <i class="fas fa-edit" id="slide"></i><a href="../Employees/Edit/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Edit" class="edit"> Edit</a>
+                    <i class="fas fa-list" id="slide1"></i><a href="../Employees/Details/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Details" class="details">Details</a>
+                    <i class="fas fa-trash-alt" id="slide2"></i><a href="../Employees/Delete/@item.EmployeeID" data-toggle="tooltip" data-placement="left" title="Delete" class="delete">Delete</a>
                 @*@Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeID })*@
@@ -122,3 +123,10 @@
 @Html.PagedListPager(Model, page => Url.Action("Index",
  new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
 
+<!-- export to excel    -->
+<a href="@Url.Action("ExportToExcel","Employees")">Export To Excel</a>
+<br />
+@Html.ActionLink("Export To Excel", "Reports", new { ReportType = "Excel" }) |
+@Html.ActionLink("Export To PDF", "Reports", new { ReportType = "PDF" }) |
+@Html.ActionLink("Export To Word", "Reports", new { ReportType = "Word" }) |
+@Html.ActionLink("Export To Image", "Reports", new { ReportType = "Image" }) 

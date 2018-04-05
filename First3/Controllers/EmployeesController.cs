@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using First3.Models;
 using System.Linq.Dynamic;
 using PagedList;
+using OfficeOpenXml;
+using Microsoft.Reporting.WinForms;
 
 namespace First3.Controllers
 {
@@ -226,7 +228,90 @@ namespace First3.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        // function ExportToExcel
+        public void ExportToExcel()
+        {
+            var employees = db.Employees.Include(e => e.Department).ToList();
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Report");
+            ws.Cells["A1"].Value = "Communication";
+            ws.Cells["B1"].Value = "Com1";
 
+            ws.Cells["A2"].Value = "Report";
+            ws.Cells["B2"].Value = "report1";
+
+            ws.Cells["A3"].Value = "Date";
+            ws.Cells["B2"].Value = string.Format("{0:dd MMMM yyyy} at {0:H: mm tt}",DateTimeOffset.Now) ;
+
+            // start table 
+            ws.Cells["A6"].Value = "EmployeeID";
+            ws.Cells["B6"].Value = "FirstName";
+            ws.Cells["C6"].Value = "LastName";
+            ws.Cells["D6"].Value = "Position";
+            ws.Cells["E6"].Value = "DepartmentName";
+
+            int rowStart = 7;
+            foreach (var item in employees)
+            {
+                //if (item.Experience < 5)
+                //{
+                //    ws.Row(rowStart).Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                //    ws.Row(rowStart).Style.Fill.BackgroundColor.SetColor(ColorTranslator.FromHtml(string.Format("pink")));
+
+                //}
+
+                ws.Cells[string.Format("A{0}", rowStart)].Value = item.EmployeeID;
+                ws.Cells[string.Format("B{0}", rowStart)].Value = item.FirstName;
+                ws.Cells[string.Format("C{0}", rowStart)].Value = item.LastName;
+                ws.Cells[string.Format("D{0}", rowStart)].Value = item.Position;
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.Department.DepartmentName;
+                rowStart++;
+            }
+            // end table
+            ws.Cells["A:AZ"].AutoFitColumns();
+            Response.Clear();
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("content-disposition", "attachment: filename=" + "ExcelReport.xlsx");
+            Response.BinaryWrite(pck.GetAsByteArray());
+            Response.End();
+
+        
+    }// end  ExportToExcel
+     // Crystal Report
+        public ActionResult Reports(string ReportType)
+        {
+            LocalReport localReport = new LocalReport();
+            localReport.ReportPath = Server.MapPath("~/Reports/EmployeeReport.rdlc");
+            ReportDataSource reportDataSource = new ReportDataSource();
+            reportDataSource.Name = "EmployeeDataSet";
+            reportDataSource.Value = db.Employees.ToList();
+            localReport.DataSources.Add(reportDataSource);
+            string mimeType;
+            string encoding;
+            string fileNameExtension;
+            if (ReportType == "Excel")
+            {
+                fileNameExtension = "xlsx";
+            }
+           else if (ReportType == "Word")
+            {
+                fileNameExtension = "docx";
+            }
+           else if (ReportType == "PDF")
+            {
+                fileNameExtension = "pdf";
+            }
+           else if (ReportType == "Image")
+            {
+                fileNameExtension = "jpg";
+            }
+            string[] streams;
+            Warning[] warnings;
+            byte[] renderedByte;
+            renderedByte = localReport.Render(ReportType,"", out mimeType, out encoding , out fileNameExtension, out streams , out warnings);
+            Response.AddHeader("content-disposition", "attachment: filename=" + "EmployeesReports."+fileNameExtension);
+            return File(renderedByte,fileNameExtension);
+        }// end crystal report
         protected override void Dispose(bool disposing)
         {
             if (disposing)
