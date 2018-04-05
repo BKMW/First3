@@ -11,6 +11,7 @@ using System.Linq.Dynamic;
 using PagedList;
 using OfficeOpenXml;
 using Microsoft.Reporting.WinForms;
+using System.IO;
 
 namespace First3.Controllers
 {
@@ -327,6 +328,22 @@ namespace First3.Controllers
             Response.AddHeader("content-disposition", "attachment: filename=" + "EmployeesReports."+fileNameExtension);
             return File(renderedByte,fileNameExtension);
         }// end crystal report
+
+        // import file excel
+        public ActionResult ImportExcel()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ImportExcel(HttpPostedFileBase file)
+        {
+          //  if(Path.GetExtension(file.FileName)=="xlsx"|| Path.GetExtension(file.FileName) == "xls")
+            //{
+            //    ExcelPackage package = new ExcelPackage(file.InputStream);
+            //    DataTable Dt = ExcelPackageExtensions.ToDataTable(package);
+            //}
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -238,6 +238,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\ExcelPackageExtensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -396,6 +397,7 @@
     <Content Include="_aspnet_First3_20180328025737DataSet.xsc">
       <DependentUpon>_aspnet_First3_20180328025737DataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Employees\ImportExcel.cshtml" />
     <None Include="_aspnet_First3_20180328025737DataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>_aspnet_First3_20180328025737DataSet.Designer.cs</LastGenOutput>
