@@ -36,11 +36,43 @@ namespace First3.Controllers
             return View(department);
 
         }
+        public ActionResult DetailsPopup(int? id)
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            Department department = db.Departments.Find(id);
+            //if (department == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return PartialView(department);
 
+        }
         // GET: Departments/Create
         public ActionResult Create()
         {
             return View();
+        }
+        public ActionResult Createe()
+        {
+            var department = new Department();
+            return PartialView(department);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Createe([Bind(Include = "DepartmentID,DepartmentName,File")] Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Departments.Add(department);
+                db.SaveChanges();
+                department.File.SaveAs(Server.MapPath("~/ImagesDepartments/") + department.DepartmentID + ".jpg");
+                return RedirectToAction("Index");
+            }
+
+            return View(department);
         }
 
         // POST: Departments/Create
@@ -114,13 +146,20 @@ namespace First3.Controllers
 
         // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        //[ValidateAntiForgeryToken]
+        public JsonResult DeleteConfirmed(int id)
         {
             Department department = db.Departments.Find(id);
-            db.Departments.Remove(department);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.Departments.Remove(department);
+                db.SaveChanges();
+            }
+            catch
+            {
+
+            }
+            return Json(JsonRequestBehavior.AllowGet);
         }
 
         // Get partial view
