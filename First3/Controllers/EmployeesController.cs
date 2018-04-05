@@ -115,11 +115,17 @@ namespace First3.Controllers
                 //                 a.Department.DepartmentName.Contains(search) 
                 //         select a
                 //                );
-            var v = db.Employees.Where(a=>
-                             a.FirstName.Contains(search) ||
-                             a.LastName.Contains(search) ||
-                             a.Position.Contains(search) ||
-                             a.Department.DepartmentName.Contains(search));
+ 
+
+            var v = db.Employees.Include(e => e.Department);
+
+            if (!String.IsNullOrEmpty(search))
+            { 
+                v = v.Where(s => s.FirstName.Contains(search) ||
+                s.Position.Contains(search) || s.Department.DepartmentName.Contains(search));
+            }
+          
+
             totalRecord = v.Count();
                 v = v.OrderBy(sort + " " + sortdir);
                 if (pageSize > 0)
@@ -161,9 +167,18 @@ namespace First3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Employees.Add(employee);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Employees.Add(employee);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
+               
+              
             }
 
             ViewBag.DepartmentID = new SelectList(db.Departments, "DepartmentID", "DepartmentName");

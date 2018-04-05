@@ -62,8 +62,7 @@
                 <a href="#" id="@item.DepartmentID" onclick="EditPopup(@item.DepartmentID)">Edit</a>
                 <a href="#" id="@item.DepartmentID" onclick="DetailsPopup(@item.DepartmentID)">Details</a>
                 <a href="#" id="@item.DepartmentID" onclick="Delete(@item.DepartmentID)">Delete</a>
-                @item.DepartmentID
-
+       
             </td>
         </tr>
 
@@ -76,9 +75,7 @@
 
 
 <!-- button -->
-<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#myModalCreate">
-    Open modal
-</button>
+
 
 <!-- start modal create -->
 <div class="modal fade" id="myModalCreate">
@@ -113,8 +110,10 @@
         </div>
     </div>
 </div>
+
 <!-- end modal create-->
 <!-- start modal details -->
+
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -206,7 +205,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" onclick="DeleteConfirmed()">Delete</button>
+                @*<button type="button" class="btn btn-danger" onclick="DeleteConfirmed()">Delete</button>*@
 
             </div>
         </div>
