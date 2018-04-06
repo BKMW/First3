@@ -293,7 +293,54 @@ namespace First3.Controllers
 
         
     }// end  ExportToExcel
-     // Crystal Report
+        // import file excel use EPPlus
+        public ActionResult ImportExcel()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ImportExcel(HttpPostedFileBase file)//(out int count)//
+        {
+            //if (file != null)
+            //{
+            if (Path.GetExtension(file.FileName) == ".xlsx" || Path.GetExtension(file.FileName) == ".xls")
+            {
+                ExcelPackage package = new ExcelPackage(file.InputStream);
+                DataTable Dt = ExcelPackageExtensions.ToDataTable(package);
+
+
+
+                // DataTable dtExcel = new DataTable();
+                var employee = new Employee();
+                //employee.FirstName.Add("First Name", typeof(String));
+                //dtExcel.Columns.Add("Last Name", typeof(String));
+                //dtExcel.Columns.Add("Position", typeof(String));
+                //dtExcel.Columns.Add("Departmnet ID", typeof(Int32));
+
+                int d;
+                for (int i = 0; i < Dt.Rows.Count; i++)
+                {
+
+                    employee.FirstName = Dt.Rows[i][1].ToString();
+                    employee.LastName = Dt.Rows[i][2].ToString();
+                    employee.Position = Dt.Rows[i][3].ToString();
+                    var x = Dt.Rows[i][4].ToString();
+                    employee.DepartmentID = Int32.Parse(x);
+
+
+                    db.Employees.Add(employee);
+
+                    db.SaveChanges();
+
+                }
+
+                return RedirectToAction("Index");
+            }
+
+
+            return View();
+        }
+        // Crystal Report
         public ActionResult Reports(string ReportType)
         {
             LocalReport localReport = new LocalReport();
@@ -329,21 +376,7 @@ namespace First3.Controllers
             return File(renderedByte,fileNameExtension);
         }// end crystal report
 
-        // import file excel
-        public ActionResult ImportExcel()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult ImportExcel(HttpPostedFileBase file)
-        {
-          //  if(Path.GetExtension(file.FileName)=="xlsx"|| Path.GetExtension(file.FileName) == "xls")
-            //{
-            //    ExcelPackage package = new ExcelPackage(file.InputStream);
-            //    DataTable Dt = ExcelPackageExtensions.ToDataTable(package);
-            //}
-            return View();
-        }
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

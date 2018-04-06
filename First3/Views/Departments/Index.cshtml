@@ -212,7 +212,11 @@
     </div>
 </div>
 <!-- end modal edit -->
-
+<!---->
+<div id="loader" style="text-align: center; display: none;">
+    <img src="~/Images/load.png" width="50" />
+</div>
+<!---->
 <script>
     //$(document).ready(function () {
 
@@ -236,12 +240,13 @@
     }
     // delete post
     var DeleteConfirmed = function () {
+        $("#loader").show();
         $.ajax({
             type: "post",
             url: "../Departments/Delete",
             data: { id: DepartmentId },
             success: function () {
-
+                $("#loader").hide();
                 $("#myModalDelete").modal("hide");
                 $("#row_" + DepartmentId).remove();
             }

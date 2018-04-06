@@ -66,13 +66,19 @@ namespace First3.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Departments.Add(department);
-                db.SaveChanges();
-                department.File.SaveAs(Server.MapPath("~/ImagesDepartments/") + department.DepartmentID + ".jpg");
-                return RedirectToAction("Index");
+                
+                    if (department.File != null)
+                    {
+                        db.Departments.Add(department);
+                        db.SaveChanges();
+                        department.File.SaveAs(Server.MapPath("~/ImagesDepartments/") + department.DepartmentID + ".jpg");
+                    }
+              
+               
             }
 
-            return View(department);
+            return RedirectToAction("Index");
+
         }
 
         // POST: Departments/Create
